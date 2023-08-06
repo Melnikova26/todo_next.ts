@@ -5,9 +5,10 @@ import { ButtonComponent } from "./ButtonComponent";
 import { TextFieldComponent } from "./TextFieldComponent";
 
 const CustomBox = styled(Box)`
-  max-width: 25rem;
+  min-width: 18rem;
   display: flex;
   flex-direction: column;
+  padding: 15px;
   background-color: #fff;
 `;
 
@@ -30,7 +31,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ note, removeTodo, setNotes }) => {
   );
 
   const handleSaveClick = useCallback(
-    (id: number) => {
+    (id: string) => {
       setNotes((prevNotes: TodoItemProps["note"][]) =>
         prevNotes.map((note) =>
           note.id === id ? { ...note, ...editedData } : note

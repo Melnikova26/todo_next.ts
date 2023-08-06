@@ -1,7 +1,5 @@
-"use client";
-
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { FormNote, TodoFormProps } from "@/types";
 
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
@@ -34,12 +32,22 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   };
 
   return (
-    <>
-      <h2>Добавить новую заметку:</h2>
+    <Box
+      component="span"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        mb: 4,
+      }}
+    >
+      <Typography variant="h6" sx={{ my: 2 }}>
+        Добавить новую заметку:
+      </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{ display: "flex", flexDirection: "column", maxWidth: "25rem" }}
+        sx={{ display: "flex", flexDirection: "column", minWidth: "20rem" }}
       >
         <TextField
           name="title"
@@ -72,7 +80,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
           Добавить заметку
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };
 

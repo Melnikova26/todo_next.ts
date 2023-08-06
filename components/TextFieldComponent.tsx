@@ -3,6 +3,9 @@ import { TextField } from "@mui/material";
 
 const textFieldStyles = {
   "& fieldset": { border: "none" },
+  "& .MuiInputBase-root": {
+    px: "4px",
+  },
 };
 
 const TextFieldComponent: React.FC<TextFieldComponentProps> = ({

@@ -1,5 +1,9 @@
+import { Box } from "@mui/material";
+
 const TheFooter = () => {
-  return <footer>Created by &copy;MilyaMelnikova</footer>;
+  return (
+    <Box sx={{ textAlign: "center" }}>Created by &copy;MilyaMelnikova</Box>
+  );
 };
 
 export { TheFooter };
