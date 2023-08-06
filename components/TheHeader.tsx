@@ -1,5 +1,5 @@
 const TheHeader = () => {
-  return <header>Мои заметки</header>;
+  return <>Мои заметки</>;
 };
 
 export { TheHeader };
