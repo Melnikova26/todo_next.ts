@@ -2,7 +2,7 @@ import { TheHeader } from "@/components/TheHeader";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { TodoForm } from "@/components/TodoForm";
+import { TodoPage } from "@/components/TodoPage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <TheHeader />
-        <TodoForm />
+        <TodoPage />
         {children}
       </body>
     </html>

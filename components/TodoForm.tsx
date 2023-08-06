@@ -1,20 +1,18 @@
 "use client";
+
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
+import { FormNote, TodoFormProps } from "@/types";
 
-interface TextType {
-  title: string;
-  content: string;
-}
-
-const TodoForm = () => {
-  const [texts, setTexts] = useState<TextType>({ title: "", content: "" });
+const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
+  const [texts, setTexts] = useState<FormNote>({ title: "", content: "" });
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     for (const key in texts) {
-      if (!texts[key as keyof TextType].trim()) return;
+      if (!texts[key as keyof FormNote].trim()) return;
     }
+    addTodo(texts);
     setTexts({ title: "", content: "" });
   };
 
@@ -26,9 +24,9 @@ const TodoForm = () => {
     }));
   };
 
-  const checkTextsValuesNotEmpty = (obj: TextType): boolean => {
+  const checkTextsValuesNotEmpty = (obj: FormNote): boolean => {
     for (const key in obj) {
-      if (!obj[key as keyof TextType].trim()) {
+      if (!obj[key as keyof FormNote].trim()) {
         return true;
       }
     }
