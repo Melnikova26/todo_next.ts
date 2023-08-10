@@ -20,7 +20,7 @@ const TodosList: React.FC<TodosListProps> = ({
     <CustomContainer>
       {notes.map((note, index) => (
         <TodoItem
-          key={index}
+          key={note.id}
           note={note}
           removeTodo={() => removeTodo(note.id)}
           setNotes={setNotes}
