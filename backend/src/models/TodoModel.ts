@@ -1,45 +1,28 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import db from "../db";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  AllowNull,
+} from "sequelize-typescript";
 
-interface TodoAttributes {
-  id: string;
-  title: string;
-  content: string;
-}
-
-interface TodoCreationAttributes extends Optional<TodoAttributes, "id"> {}
-
-class TodoModel
-  extends Model<TodoAttributes, TodoCreationAttributes>
-  implements TodoAttributes
-{
+@Table({
+  modelName: "TodoModel",
+  tableName: "todos",
+  timestamps: false,
+})
+class TodoModel extends Model {
+  @AllowNull(false)
+  @Column(DataType.UUID)
   public id!: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING)
   public title!: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING)
   public content!: string;
 }
-
-TodoModel.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize: db,
-    modelName: "TodoModel",
-    tableName: "todos",
-    timestamps: false,
-  }
-);
 
 export { TodoModel };
