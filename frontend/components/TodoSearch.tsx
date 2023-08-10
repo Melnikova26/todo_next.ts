@@ -4,7 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { TodoSearchProps } from "@/types";
 
 const TodoSearch: React.FC<TodoSearchProps> = ({ notes, setFilteredNotes }) => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     if (!search.trim()) {
       setFilteredNotes([...notes]);
