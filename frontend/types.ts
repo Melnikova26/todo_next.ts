@@ -9,13 +9,11 @@ export interface NoteType {
 export interface TodosListProps {
   notes: NoteType[];
   removeTodo: (id: string) => void;
-  setNotes: Function;
 }
 
 export interface TodoItemProps {
   note: NoteType;
   removeTodo: () => void;
-  setNotes: Function;
 }
 
 export interface TextFieldComponentProps {
@@ -32,6 +30,7 @@ export interface ButtonComponentProps {
   handleCancelClick: () => void;
   setIsEditing: Function;
   removeTodo: () => void;
+  editedData: FormNote;
 }
 
 export interface TodoFormProps {

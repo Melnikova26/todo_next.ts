@@ -3,6 +3,8 @@ import { TodoItemProps, FormNote } from "@/types";
 import { ChangeEvent, useCallback, useState } from "react";
 import { ButtonComponent } from "./ButtonComponent";
 import { TextFieldComponent } from "./TextFieldComponent";
+import axios from "axios";
+import { mutate } from "swr";
 
 const CustomBox = styled(Box)`
   min-width: 18rem;
@@ -12,35 +14,34 @@ const CustomBox = styled(Box)`
   background-color: #fff;
 `;
 
-const TodoItem: React.FC<TodoItemProps> = ({ note, removeTodo, setNotes }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ note, removeTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEditedData] = useState<FormNote>({
     title: note.title,
     content: note.content,
   });
 
-  const handleEdit = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setEditedData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    },
-    [editedData]
-  );
+  const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  const handleSaveClick = useCallback(
-    (id: string) => {
-      setNotes((prevNotes: TodoItemProps["note"][]) =>
-        prevNotes.map((note) =>
+  const handleSaveClick = async (id: string) => {
+    try {
+      await axios.put(`/api/todo/${id}`, editedData);
+      mutate("/api/todo", (data) =>
+        data.map((note: { id: string }) =>
           note.id === id ? { ...note, ...editedData } : note
         )
       );
       setIsEditing(false);
-    },
-    [note.id, note.content, note.title]
-  );
+    } catch (error) {
+      console.error("Failed to update todo:", error);
+    }
+  };
 
   const handleCancelClick = useCallback(() => {
     setEditedData({
@@ -72,6 +73,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ note, removeTodo, setNotes }) => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         removeTodo={removeTodo}
+        editedData={editedData}
       />
     </CustomBox>
   );

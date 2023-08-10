@@ -11,19 +11,14 @@ const CustomContainer = styled("div")`
   padding: 20px;
 `;
 
-const TodosList: React.FC<TodosListProps> = ({
-  notes,
-  removeTodo,
-  setNotes,
-}) => {
+const TodosList: React.FC<TodosListProps> = ({ notes, removeTodo }) => {
   return (
     <CustomContainer>
-      {notes.map((note, index) => (
+      {notes.map((note) => (
         <TodoItem
-          key={index}
+          key={note.id}
           note={note}
           removeTodo={() => removeTodo(note.id)}
-          setNotes={setNotes}
         />
       ))}
     </CustomContainer>

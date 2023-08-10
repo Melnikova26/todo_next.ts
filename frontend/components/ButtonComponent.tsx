@@ -1,5 +1,6 @@
 import { ButtonComponentProps } from "@/types";
 import { Button, ButtonGroup } from "@mui/material";
+import { useEffect } from "react";
 
 const ButtonComponent: React.FC<ButtonComponentProps> = ({
   isEditing,
@@ -7,6 +8,7 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
   handleSaveClick,
   handleCancelClick,
   removeTodo,
+  editedData,
 }) => {
   return isEditing ? (
     <>
