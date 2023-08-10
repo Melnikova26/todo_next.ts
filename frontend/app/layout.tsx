@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Home from "./page";
-import { TheFooter } from "@/components/TheFooter";
-import { TheHeader } from "@/components/TheHeader";
+import { Footer } from "@/components/TheFooter";
+import { Header } from "@/components/TheHeader";
 import { TodoPage } from "@/components/TodoPage";
 import { Container } from "@mui/material";
 const inter = Inter({ subsets: ["latin"] });
@@ -25,9 +25,9 @@ export default function RootLayout() {
             justifyContent: "space-between",
           }}
         >
-          <TheHeader />
+          <Header />
           <TodoPage />
-          <TheFooter />
+          <Footer />
         </Container>
       </body>
     </html>
