@@ -3,7 +3,9 @@ import { TodoModel } from "../models/TodoModel";
 
 export const getTodos = async (req: Request, res: Response) => {
   try {
-    const todos = await TodoModel.findAll();
+    const todos = await TodoModel.findAll({
+      order: [["createdAt", "ASC"]],
+    });
     res.json(todos);
   } catch (error) {
     console.error("Error fetching todos:", error);
@@ -13,9 +15,10 @@ export const getTodos = async (req: Request, res: Response) => {
 
 export const createTodo = async (req: Request, res: Response) => {
   try {
-    const { title, content } = req.body;
+    const { id, title, content } = req.body;
 
     const newTodo = await TodoModel.create({
+      id,
       title,
       content,
     });

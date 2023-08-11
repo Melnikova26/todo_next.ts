@@ -39,6 +39,6 @@ export interface TodoFormProps {
 export type FormNote = Omit<NoteType, "id">;
 
 export interface TodoSearchProps {
-  notes: NoteType[];
-  setFilteredNotes: Dispatch<SetStateAction<NoteType[]>>;
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
 }

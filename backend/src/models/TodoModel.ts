@@ -1,28 +1,26 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  AllowNull,
-} from "sequelize-typescript";
+import { DataTypes } from "sequelize";
+import { Model, Table, Column } from "sequelize-typescript";
 
-@Table({
-  modelName: "TodoModel",
-  tableName: "todos",
-  timestamps: false,
-})
+@Table
 class TodoModel extends Model {
-  @AllowNull(false)
-  @Column(DataType.UUID)
-  public id!: string;
+  @Column({
+    type: DataTypes.UUID,
+    primaryKey: true,
+    allowNull: false,
+  })
+  id!: string;
 
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  public title!: string;
+  @Column({
+    type: DataTypes.STRING,
+    allowNull: false,
+  })
+  title!: string;
 
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  public content!: string;
+  @Column({
+    type: DataTypes.STRING,
+    allowNull: false,
+  })
+  content!: string;
 }
 
 export { TodoModel };

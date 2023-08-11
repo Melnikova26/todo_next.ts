@@ -14,6 +14,11 @@ services:
     container_name: backend
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres
+    command: ["sh", "-c", "sleep 10 && npm start"]
+    env_file:
+      - .env
 
   frontend:
     build:

@@ -1,5 +1,5 @@
 import { Box, styled } from "@mui/material";
-import { TodoItemProps, FormNote } from "@/types";
+import { TodoItemProps, FormNote, NoteType } from "@/types";
 import { ChangeEvent, useCallback, useState } from "react";
 import { ButtonComponent } from "./ButtonComponent";
 import { TextFieldComponent } from "./TextFieldComponent";
@@ -16,35 +16,43 @@ const CustomBox = styled(Box)`
 
 const TodoItem: React.FC<TodoItemProps> = ({ note, removeTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedData, setEditedData] = useState<FormNote>({
+  const [editedData, setEditedData] = useState<NoteType>({
+    id: note.id,
     title: note.title,
     content: note.content,
   });
 
-  const handleEdit = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditedData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const handleEdit = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setEditedData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    },
+    [editedData]
+  );
 
-  const handleSaveClick = async (id: string) => {
-    try {
-      await axios.put(`/api/todo/${id}`, editedData);
-      mutate("/api/todo", (data) =>
-        data.map((note: { id: string }) =>
-          note.id === id ? { ...note, ...editedData } : note
-        )
-      );
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Failed to update todo:", error);
-    }
-  };
+  const handleSaveClick = useCallback(
+    async (id: string) => {
+      try {
+        await axios.put(`/api/todo/${id}`, editedData);
+        mutate("/api/todo", (data) =>
+          data.map((note: { id: string }) =>
+            note.id === id ? { ...note, ...editedData } : note
+          )
+        );
+        setIsEditing(false);
+      } catch (error) {
+        console.error("Failed to update todo:", error);
+      }
+    },
+    [editedData]
+  );
 
   const handleCancelClick = useCallback(() => {
     setEditedData({
+      id: note.id,
       title: note.title,
       content: note.content,
     });

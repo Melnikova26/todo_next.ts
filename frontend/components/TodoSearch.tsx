@@ -3,24 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { TodoSearchProps } from "@/types";
 
-const TodoSearch: React.FC<TodoSearchProps> = ({ notes, setFilteredNotes }) => {
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    if (!search.trim()) {
-      setFilteredNotes([...notes]);
-    }
-  }, [search]);
-
-  const handleSearch = () => {
-    const filteredNotes = notes.filter(
-      (note) =>
-        note.title.toLowerCase().includes(search.toLowerCase().trim()) ||
-        note.content.toLowerCase().includes(search.toLowerCase().trim())
-    );
-    setFilteredNotes([...filteredNotes]);
-  };
-
+const TodoSearch: React.FC<TodoSearchProps> = ({ search, setSearch }) => {
   return (
     <Box sx={{ mb: 4 }}>
       <TextField
@@ -34,7 +17,7 @@ const TodoSearch: React.FC<TodoSearchProps> = ({ notes, setFilteredNotes }) => {
         }
         InputProps={{
           endAdornment: (
-            <IconButton edge="end" aria-label="search" onClick={handleSearch}>
+            <IconButton edge="end" aria-label="search">
               <SearchIcon />
             </IconButton>
           ),
@@ -45,3 +28,12 @@ const TodoSearch: React.FC<TodoSearchProps> = ({ notes, setFilteredNotes }) => {
 };
 
 export { TodoSearch };
+
+// const handleSearch = () => {
+//   const filteredNotes = notes.filter(
+//     (note) =>
+//       note.title.toLowerCase().includes(search.toLowerCase().trim()) ||
+//       note.content.toLowerCase().includes(search.toLowerCase().trim())
+//   );
+//   setFilteredNotes([...filteredNotes]);
+// };
